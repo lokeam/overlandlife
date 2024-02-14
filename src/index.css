@@ -274,3 +274,56 @@ header a:hover {
 i[class*='rig-type-'] {
     padding: 7px 14px;
 }
+
+.rig-detail-container {
+    padding: 27px;
+}
+
+.rig-detail-container .back-button {
+    color: black;
+    text-decoration: none;
+}
+
+.rig-detail-container .back-button:visited {
+
+}
+
+.rig-detail-container .back-button span {
+    text-decoration: underline;
+}
+
+.rig-detail {
+    display: flex;
+    flex-direction: column;
+    color: #161616;
+}
+
+.rig-detail img {
+    border-radius: 5px;
+    margin-block: 47px;
+}
+
+.rig-detail h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.rig-detail > i {
+    align-self: flex-start;
+}
+
+.rig-detail .rig-price {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.rig-detail .rig-price span {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.rig-detail .link-button {
+    background-color: #FF8C38;
+    color: white;
+    font-size: 1.125rem;
+}

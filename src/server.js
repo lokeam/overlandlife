@@ -30,7 +30,7 @@ createServer({
 
         this.get("/rigs/:id", (schema, request) => {
             const id = request.params.id
-            return schema.vans.find(id)
+            return schema.rigs.find(id)
         })
     }
 })
