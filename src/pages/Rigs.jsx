@@ -1,48 +1,64 @@
 import { useState, useEffect } from 'react';
 
 export default function Rigs () {
-/*
-  - fetch data upon page load
+  /*
+    Fetch Data from API
 
-  Garbage Collection:
-  - make sure component is mounted before making fetch
-  - abort fetch if/when component unmounts
-  - clean up side effects after getting data
+    State:
+    - dataFromAPI
+    - isLoading
+    - fetchErrors
 
-  State:
-  - data
-  - loading state
+    Error Handling:
+    - wrap fetch req in try-catch-finally block
+    - console out errors, make sure error is not too explicit
 
-  Error Handling:
-  - wrap in try catch
-  - save fetch errors
-
-*/
-  const [rigs, setRigs] = useState([])
-  const url = '/api/rigs';
+    Garbage Collection:
+    - close out side effects in useEffect
+      - don't make requests if not mounted
+      - abort requests if/when unmounted
+  */
+ const [rigData, setRigData] = useState([]);
+ const [isLoading, setIsLoading] = useState(false);
+ const url = '/api/rigs';
 
   useEffect(() => {
     let isMounted = true;
     let abortController = new AbortController();
 
     const fetchData = async (url) => {
-      const response = await fetch(url, { signal: abortController.signal });
-      const data = await response.json();
+      setIsLoading(true);
 
-      if (isMounted) setRigs(data.rigs);
-    }
+      try {
+        const response = await fetch(url, { signal: abortController.signal });
+
+        if (isMounted) {
+          const data = await response.json();
+          setRigData(data.rigs);
+        }
+      } catch(error) {
+        if (error.name !== 'AbortError') {
+          console.log('error fetching data outside of abort controller: ', error);
+        }
+
+        // optionally save state for fetchErrors here
+      } finally {
+        isMounted && setIsLoading(false);
+      }
+    };
 
     fetchData(url);
 
     return () => {
       console.log('cleaning up side effects');
-      abortController.abort();
       isMounted = false;
+      abortController.abort();
     }
   }, []);
 
-  const rigCards = rigs.map(rig => (
+  const rigCards = rigData.map(rig => (
     <div key={rig.id} className="rig-card">
+      <img alt={rig.name} src={rig.imageUrl} />
       <div className="rig-info">
         <h3>{rig.name}</h3>
         <p>${rig.price}<span>/day</span></p>
@@ -55,7 +71,8 @@ export default function Rigs () {
     <div>
       <h1>Getting there is half the fun #OverlandingRigs</h1>
       <div className="rig-list">
-        {rigCards}
+        { isLoading && <div>Loading vehicles...</div> }
+        { !isLoading && rigCards }
       </div>
     </div>
 
