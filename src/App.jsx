@@ -12,6 +12,7 @@ import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
 import RigsDetail from './pages/Rigs/RigsDetail';
 
+
 import './App.css'
 
 // mock server response:
