@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Rigs () {
   /*
@@ -58,12 +59,14 @@ export default function Rigs () {
 
   const rigCards = rigData.map(rig => (
     <div key={rig.id} className="rig-card">
-      <img alt={rig.name} src={rig.imageUrl} />
-      <div className="rig-info">
-        <h3>{rig.name}</h3>
-        <p>${rig.price}<span>/day</span></p>
-      </div>
-      <i className={`rig-type ${rig.type} selected`}>{rig.type}</i>
+      <Link to={`/rigs/${rig.id}`}>
+        <img alt={rig.name} src={rig.imageUrl} />
+        <div className="rig-info">
+          <h3>{rig.name}</h3>
+          <p>${rig.price}<span>/day</span></p>
+        </div>
+        <i className={`rig-type ${rig.type} selected`}>{rig.type}</i>
+      </Link>
     </div>
   ))
 
