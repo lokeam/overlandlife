@@ -7,11 +7,12 @@ import HostLayout from './components/HostLayout';
 
 import About from './pages/About';
 import Rigs from './pages/Rigs/Rigs';
+import RigsDetail from './pages/Rigs/RigsDetail';
 import Dashboard from './pages/Host/Dashboard';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
-import RigsDetail from './pages/Rigs/RigsDetail';
-
+import HostRigs from './pages/Host/HostRigs';
+import HostRigDetail from './pages/Host/HostRigDetail';
 
 import './App.css'
 
@@ -34,6 +35,8 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
+            <Route path="rigs" element={<HostRigs />} />
+            <Route path="rigs/:id" element={<HostRigDetail />} />
           </Route>
 
         </Route>
