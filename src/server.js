@@ -40,7 +40,7 @@ createServer({
 
         this.get("/host/rigs/:id", (schema, request) => {
             const id = request.params.id;
-            return schema.rigs.where({ id, hostId: "123" });
+            return schema.rigs.findBy({ id, hostId: "123" });
         });
     }
 })
