@@ -42,10 +42,10 @@ export default function HostRigs() {
       className="host-rig-link-wrapper"
     >
       <div className="host-rig-single" key={rig.id}>
-        <img src={rig.imageUrl} alt={`Photo of ${rig.name}`} />
+        <img src={`${rig.imageUrl}`} alt={`Photo of ${rig.name}`} />
         <div className="host-rig-info">
           <h3>{rig.name}</h3>
-          <p>${rig.price}</p>
+          <p>${rig.price}/day</p>
         </div>
       </div>
     </Link>

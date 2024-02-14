@@ -14,8 +14,6 @@ import Reviews from './pages/Host/Reviews';
 import HostRigs from './pages/Host/HostRigs';
 import HostRigDetail from './pages/Host/HostRigDetail';
 
-import './App.css'
-
 // mock server response:
 import './server';
 
