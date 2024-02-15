@@ -53,11 +53,13 @@ export default function HostRigDetail () {
           {
             currentRig ? (
               <>
-                <div className="rig-detail-container">
+                <div className="rig-detail">
                   <img alt={currentRig.name} src={currentRig.imageUrl} />
-                  <i className={`rig-type ${currentRig.type} selected`}>{currentRig.type}</i>
-                  <h2>{currentRig.name}</h2>
-                  <p className="rig-price"><span>${currentRig.price}</span>/day</p>
+                  <div className="host-rig-detail-info-text">
+                    <i className={`rig-type rig-type-${currentRig.type}`}>{currentRig.type}</i>
+                    <h2>{currentRig.name}</h2>
+                    <p className="rig-price"><span>${currentRig.price}</span>/day</p>
+                  </div>
                 </div>
                 <nav className="host-rig-detail-nav">
                   <NavLink end style={({ isActive }) => isActive ? activeStyles: null} to=".">Details</NavLink>

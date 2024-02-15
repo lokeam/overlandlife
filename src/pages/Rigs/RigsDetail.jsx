@@ -39,7 +39,7 @@ export default function RigsDetail () {
     <div className="rig-detail-container">
       {
         rig ? (
-          <div className="rig-detail-container">
+          <div className="rig-detail">
             <img alt={rig.name} src={rig.imageUrl} />
             <i className={`rig-type ${rig.type} selected`}>{rig.type}</i>
             <h2>{rig.name}</h2>

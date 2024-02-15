@@ -71,7 +71,7 @@ export default function Rigs () {
   ))
 
   return (
-    <div>
+    <div className="rig-list-container">
       <h1>Getting there is half the fun #OverlandingRigs</h1>
       <div className="rig-list">
         { isLoading && <div>Loading vehicles...</div> }

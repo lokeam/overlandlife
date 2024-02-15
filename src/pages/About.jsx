@@ -16,5 +16,5 @@ export default function About() {
         <Link className="link-button" to="/rigs">Explore our Trucks and SUVs</Link>
       </div>
     </div>
-  )
+  );
 }
