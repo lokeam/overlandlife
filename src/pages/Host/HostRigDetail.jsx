@@ -1,12 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { useParams, Link, NavLink, Outlet } from "react-router-dom";
 
 export default function HostRigDetail () {
   const params = useParams();
   const [currentRig, setCurrentRig ] = useState(null);
   const url = `/api/host/rigs/${params.id}`;
+
+  const activeStyles = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "#161616"
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -43,23 +48,27 @@ export default function HostRigDetail () {
         to=".."
         relative="path"
         className="back-button"
-      >&larr; <span>Back to all rigs</span>
+      >&larr; <span>Back to all rigs</span></Link>
         <div className="rig-detail-container">
           {
             currentRig ? (
-              <div className="rig-detail-container">
-                <img alt={currentRig.name} src={currentRig.imageUrl} />
-                <i className={`rig-type ${currentRig.type} selected`}>{currentRig.type}</i>
-                <h2>{currentRig.name}</h2>
-                <p className="rig-price"><span>${currentRig.price}</span>/day</p>
-                <p>{currentRig.description}</p>
-                <button className="link-button">Rent this rig</button>
-              </div>
+              <>
+                <div className="rig-detail-container">
+                  <img alt={currentRig.name} src={currentRig.imageUrl} />
+                  <i className={`rig-type ${currentRig.type} selected`}>{currentRig.type}</i>
+                  <h2>{currentRig.name}</h2>
+                  <p className="rig-price"><span>${currentRig.price}</span>/day</p>
+                </div>
+                <nav className="host-rig-detail-nav">
+                  <NavLink end style={({ isActive }) => isActive ? activeStyles: null} to=".">Details</NavLink>
+                  <NavLink style={({ isActive }) => isActive ? activeStyles: null} to="pricing">Pricing</NavLink>
+                  <NavLink style={({ isActive }) => isActive ? activeStyles: null} to="photos">Photos</NavLink>
+                </nav>
+                <Outlet context={{ currentRig }} />
+              </>
             ) : <p>Loading...</p>
           }
         </div>
-      </Link>
     </section>
-
   );
 }

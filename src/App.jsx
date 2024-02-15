@@ -13,9 +13,13 @@ import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
 import HostRigs from './pages/Host/HostRigs';
 import HostRigDetail from './pages/Host/HostRigDetail';
+import HostRigInfo from './pages/Host/HostRigInfo';
+import HostRigPricing from './pages/Host/HostRigPricing';
+import HostRigPhotos from './pages/Host/HostRigPhotos';
 
 // mock server response:
 import './server';
+
 
 function App() {
 
@@ -34,7 +38,13 @@ function App() {
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="rigs" element={<HostRigs />} />
-            <Route path="rigs/:id" element={<HostRigDetail />} />
+
+            <Route path="rigs/:id" element={<HostRigDetail />}>
+              <Route index element={<HostRigInfo />}/>
+              <Route path="pricing" element={<HostRigPricing />}/>
+              <Route path="photos" element={<HostRigPhotos />} />
+            </Route>
+
           </Route>
 
         </Route>
