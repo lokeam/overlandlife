@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export default function Rigs () {
   /*
@@ -21,6 +21,9 @@ export default function Rigs () {
   */
  const [rigData, setRigData] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
+ const [searchParams, setSearchParams] = useSearchParams();
+
+ const typeFilter = searchParams.get("type");
  const url = '/api/rigs';
 
   useEffect(() => {
@@ -57,7 +60,11 @@ export default function Rigs () {
     }
   }, []);
 
-  const rigCards = rigData.map(rig => (
+  const renderedRigs = typeFilter
+    ? rigData.filter(rig => rig.type === typeFilter)
+    : rigData;
+
+  const rigCards = renderedRigs.map(rig => (
     <div key={rig.id} className="rig-card">
       <Link to={`/rigs/${rig.id}`}>
         <img alt={rig.name} src={rig.imageUrl} />
@@ -68,16 +75,42 @@ export default function Rigs () {
         <i className={`rig-type ${rig.type} selected`}>{rig.type}</i>
       </Link>
     </div>
-  ))
+  ));
+
+  const handleProductFilter = (key, value) => {
+    setSearchParams(previousParams => {
+      if (value === null) {
+        previousParams.delete(key);
+      } else {
+        previousParams.set(key, value);
+      }
+    });
+  }
 
   return (
     <div className="rig-list-container">
-      <h1>Getting there is half the fun #OverlandingRigs</h1>
+      <h1>Explore our vehicle options</h1>
+      <div className="rig-list-filter-buttons">
+        <button
+          className={`rig-type simple ${typeFilter === "simple" ? "selected" : ""}`}
+          onClick={() => handleProductFilter("type", "simple")}>Simple</button>
+        <button
+          className={`rig-type rugged ${typeFilter === "rugged" ? "selected" : ""}`}
+          onClick={() => handleProductFilter("type", "rugged")}>Rugged</button>
+        <button
+          className={`rig-type luxury ${typeFilter === "luxury" ? "selected" : ""}`}
+          onClick={() => handleProductFilter("type", "luxury")}>Luxury</button>
+       {typeFilter ?
+          (
+            <button
+              className="rig-type clear-filters"
+              onClick={() => handleProductFilter("type", null)}>Reset filter</button>
+          ) : null}
+      </div>
       <div className="rig-list">
         { isLoading && <div>Loading vehicles...</div> }
         { !isLoading && rigCards }
       </div>
     </div>
-
   );
 }
