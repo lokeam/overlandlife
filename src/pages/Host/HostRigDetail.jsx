@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function HostRigDetail () {
   const params = useParams();
@@ -37,19 +38,28 @@ export default function HostRigDetail () {
   }, [url]);
 
   return (
-    <div className="rig-detail-container">
-      {
-        currentRig ? (
-          <div className="rig-detail-container">
-            <img alt={currentRig.name} src={currentRig.imageUrl} />
-            <i className={`rig-type ${currentRig.type} selected`}>{currentRig.type}</i>
-            <h2>{currentRig.name}</h2>
-            <p className="rig-price"><span>${currentRig.price}</span>/day</p>
-            <p>{currentRig.description}</p>
-            <button className="link-button">Rent this rig</button>
-          </div>
-        ) : <p>Loading...</p>
-      }
-    </div>
+    <section>
+      <Link
+        to=".."
+        relative="path"
+        className="back-button"
+      >&larr; <span>Back to all rigs</span>
+        <div className="rig-detail-container">
+          {
+            currentRig ? (
+              <div className="rig-detail-container">
+                <img alt={currentRig.name} src={currentRig.imageUrl} />
+                <i className={`rig-type ${currentRig.type} selected`}>{currentRig.type}</i>
+                <h2>{currentRig.name}</h2>
+                <p className="rig-price"><span>${currentRig.price}</span>/day</p>
+                <p>{currentRig.description}</p>
+                <button className="link-button">Rent this rig</button>
+              </div>
+            ) : <p>Loading...</p>
+          }
+        </div>
+      </Link>
+    </section>
+
   );
 }
