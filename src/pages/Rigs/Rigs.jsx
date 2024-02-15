@@ -66,7 +66,13 @@ export default function Rigs () {
 
   const rigCards = renderedRigs.map(rig => (
     <div key={rig.id} className="rig-card">
-      <Link to={rig.id}>
+      <Link
+        to={rig.id}
+        state={{
+              search: `?${searchParams.toString()}`,
+              type: typeFilter
+            }}
+      >
         <img alt={rig.name} src={rig.imageUrl} />
         <div className="rig-info">
           <h3>{rig.name}</h3>

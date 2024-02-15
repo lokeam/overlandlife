@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 export default function RigsDetail () {
   const params = useParams();
+  const location = useLocation();
+  console.log(location);
   const [rig, setRig ] = useState(null);
   const url = `/api/rigs/${params.id}`;
 
@@ -35,13 +37,16 @@ export default function RigsDetail () {
     }
   }, [url]);
 
+  const searchState = location.state?.search || '';
+  const rigTypeState = location.state?.type || 'all';
+
   return (
     <div className="rig-detail-container">
       <Link
-        to=".."
+        to={`..${searchState}`}
         relative="path"
         className="back-button"
-      >&larr; <span>Back to all rigs</span></Link>
+      >&larr; <span>Back to {rigTypeState} rigs</span></Link>
       {
         rig ? (
           <div className="rig-detail">
