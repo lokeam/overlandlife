@@ -37,7 +37,7 @@ export default function HostRigs() {
 
   const hostRigElements = rigs.map((rig) => (
     <Link
-      to={`/host/rigs/${rig.id}`}
+      to={rig.id}
       key={rig.id}
       className="host-rig-link-wrapper"
     >

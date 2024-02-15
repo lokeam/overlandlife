@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function RigsDetail () {
   const params = useParams();
@@ -37,6 +37,11 @@ export default function RigsDetail () {
 
   return (
     <div className="rig-detail-container">
+      <Link
+        to=".."
+        relative="path"
+        className="back-button"
+      >&larr; <span>Back to all rigs</span></Link>
       {
         rig ? (
           <div className="rig-detail">
