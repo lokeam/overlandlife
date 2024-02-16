@@ -1,13 +1,18 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Routes,
+  Route
+} from 'react-router-dom';
 
 import Home from './pages/Home';
-
 import Layout from './components/Layout';
 import HostLayout from './components/HostLayout';
-
 import About from './pages/About';
 import Rigs from './pages/Rigs/Rigs';
 import RigsDetail from './pages/Rigs/RigsDetail';
+
 import Dashboard from './pages/Host/Dashboard';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
@@ -16,41 +21,39 @@ import HostRigDetail from './pages/Host/HostRigDetail';
 import HostRigInfo from './pages/Host/HostRigInfo';
 import HostRigPricing from './pages/Host/HostRigPricing';
 import HostRigPhotos from './pages/Host/HostRigPhotos';
+
 import NotFound from './pages/NotFound';
 
 // mock server response:
 import './server';
 
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Layout />}>
+    <Route index element={<Home />}/>
+    <Route path="about" element={<About />} />
+    <Route path="rigs" element={<Rigs /> } />
+    <Route path="rigs/:id" element={<RigsDetail /> } />
+
+    <Route path="/host" element={<HostLayout />}>
+      <Route index element={<Dashboard />} />
+      <Route path="income" element={<Income />} />
+      <Route path="reviews" element={<Reviews />} />
+
+      <Route path="rigs" element={<HostRigs />} />
+      <Route path="rigs/:id" element={<HostRigDetail />}>
+        <Route index element={<HostRigInfo />}/>
+        <Route path="pricing" element={<HostRigPricing />}/>
+        <Route path="photos" element={<HostRigPhotos />} />
+      </Route>
+    </Route>
+
+    <Route path="*" element={<NotFound />} />
+  </Route>
+));
 
 function App() {
-
   return (
-    <BrowserRouter>
-      <Routes>
-
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />}/>
-          <Route path="about" element={<About />} />
-          <Route path="rigs" element={<Rigs /> } />
-          <Route path="rigs/:id" element={<RigsDetail /> } />
-
-          <Route path="/host" element={<HostLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="income" element={<Income />} />
-            <Route path="reviews" element={<Reviews />} />
-            <Route path="rigs" element={<HostRigs />} />
-
-            <Route path="rigs/:id" element={<HostRigDetail />}>
-              <Route index element={<HostRigInfo />}/>
-              <Route path="pricing" element={<HostRigPricing />}/>
-              <Route path="photos" element={<HostRigPhotos />} />
-            </Route>
-          </Route>
-          <Route path="*" element={<NotFound />} />
-
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   )
 }
 
