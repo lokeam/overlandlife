@@ -1,64 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLoaderData } from 'react-router-dom';
+import { getRigs } from '../api';
+
+export function loader() {
+  return getRigs();
+}
 
 export default function Rigs () {
-  /*
-    Fetch Data from API
-
-    State:
-    - dataFromAPI
-    - isLoading
-    - fetchErrors
-
-    Error Handling:
-    - wrap fetch req in try-catch-finally block
-    - console out errors, make sure error is not too explicit
-
-    Garbage Collection:
-    - close out side effects in useEffect
-      - don't make requests if not mounted
-      - abort requests if/when unmounted
-  */
- const [rigData, setRigData] = useState([]);
- const [isLoading, setIsLoading] = useState(false);
  const [searchParams, setSearchParams] = useSearchParams();
+ const rigData = useLoaderData().rigs;
+
+ console.log('loaderData: ', rigData);
 
  const typeFilter = searchParams.get("type");
- const url = '/api/rigs';
-
-  useEffect(() => {
-    let isMounted = true;
-    let abortController = new AbortController();
-
-    const fetchData = async (url) => {
-      setIsLoading(true);
-
-      try {
-        const response = await fetch(url, { signal: abortController.signal });
-
-        if (isMounted) {
-          const data = await response.json();
-          setRigData(data.rigs);
-        }
-      } catch(error) {
-        if (error.name !== 'AbortError') {
-          console.log('error fetching data outside of abort controller: ', error);
-        }
-
-        // optionally save state for fetchErrors here
-      } finally {
-        isMounted && setIsLoading(false);
-      }
-    };
-
-    fetchData(url);
-
-    return () => {
-      console.log('cleaning up side effects');
-      isMounted = false;
-      abortController.abort();
-    }
-  }, []);
 
   const renderedRigs = typeFilter
     ? rigData.filter(rig => rig.type === typeFilter)
@@ -114,8 +67,7 @@ export default function Rigs () {
           ) : null}
       </div>
       <div className="rig-list">
-        { isLoading && <div>Loading vehicles...</div> }
-        { !isLoading && rigCards }
+        { rigCards }
       </div>
     </div>
   );

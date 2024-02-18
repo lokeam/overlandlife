@@ -2,7 +2,6 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  Routes,
   Route
 } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ import Home from './pages/Home';
 import Layout from './components/Layout';
 import HostLayout from './components/HostLayout';
 import About from './pages/About';
-import Rigs from './pages/Rigs/Rigs';
+import Rigs, { loader as rigsLoader } from './pages/Rigs/Rigs';
 import RigsDetail from './pages/Rigs/RigsDetail';
 
 import Dashboard from './pages/Host/Dashboard';
@@ -31,7 +30,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />}/>
     <Route path="about" element={<About />} />
-    <Route path="rigs" element={<Rigs /> } />
+    <Route path="rigs" element={<Rigs /> } loader={rigsLoader}/>
     <Route path="rigs/:id" element={<RigsDetail /> } />
 
     <Route path="/host" element={<HostLayout />}>
