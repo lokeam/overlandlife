@@ -22,6 +22,7 @@ import HostRigPricing from './pages/Host/HostRigPricing';
 import HostRigPhotos from './pages/Host/HostRigPhotos';
 
 import NotFound from './pages/NotFound';
+import Error from './components/Error';
 
 // mock server response:
 import './server';
@@ -30,7 +31,12 @@ const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />}/>
     <Route path="about" element={<About />} />
-    <Route path="rigs" element={<Rigs /> } loader={rigsLoader}/>
+    <Route
+      path="rigs"
+      element={<Rigs /> }
+      loader={rigsLoader}
+      errorElement={<Error />}
+    />
     <Route path="rigs/:id" element={<RigsDetail /> } />
 
     <Route path="/host" element={<HostLayout />}>
