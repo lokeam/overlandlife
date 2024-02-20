@@ -1,14 +1,30 @@
 import { Link, NavLink } from "react-router-dom";
 
 export default function Header () {
+  const activeStyles = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "#161616"
+  }
+
+  function fakeLogOut() {
+    localStorage.removeItem("loggedin")
+  }
 
   return (
     <header>
       <Link className="site-logo" to="/">#Overlandlife</Link>
       <nav>
-        <NavLink className={(isActive) => isActive ? "active-link" : null} to="/about">About</NavLink>
-        <NavLink className={(isActive) => isActive ? "active-link" : null} to="/rigs">Rigs</NavLink>
-        <NavLink className={(isActive) => isActive ? "active-link" : null} to="/host">Host</NavLink>
+        <NavLink className={(isActive) => isActive ? activeStyles : null} to="about">About</NavLink>
+        <NavLink className={(isActive) => isActive ? activeStyles : null} to="rigs">Rigs</NavLink>
+        <NavLink className={(isActive) => isActive ? activeStyles : null} to="host">Host</NavLink>
+        <Link className={(isActive) => isActive ? activeStyles : null} to="login">
+          <img
+            src="../assets/images/avatar-icon.png"
+            className="login-icon"
+          />
+        </Link>
+        <button onClick={fakeLogOut}>X</button>
       </nav>
   </header>
   );
