@@ -42,5 +42,21 @@ createServer({
             const id = request.params.id;
             return schema.rigs.findBy({ id, hostId: "123" });
         });
+
+        this.post("/login", (schema, request) => {
+            /* poc only: do not save text credentials into db */
+            const { email, password } = JSON.parse(request.requestBody)
+            const foundUser = schema.users.findBy({ email, password })
+            if (!foundUser) {
+                return new Response(401, {}, { message: "No user with those credentials found!" })
+            }
+
+            /* poc: send token back to user (do not do this in production) */
+            foundUser.password = undefined
+            return {
+                user: foundUser,
+                token: "Token testing"
+            }
+        });
     }
 })
