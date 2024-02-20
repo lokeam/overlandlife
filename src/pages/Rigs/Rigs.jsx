@@ -7,9 +7,7 @@ export function loader() {
 
 export default function Rigs () {
  const [searchParams, setSearchParams] = useSearchParams();
- const rigData = useLoaderData().rigs;
-
- console.log('loaderData: ', rigData);
+ const rigData = useLoaderData();
 
  const typeFilter = searchParams.get("type");
 

@@ -10,13 +10,13 @@ import Layout from './components/Layout';
 import HostLayout from './components/HostLayout';
 import About from './pages/About';
 import Rigs, { loader as rigsLoader } from './pages/Rigs/Rigs';
-import RigsDetail from './pages/Rigs/RigsDetail';
+import RigsDetail, {loader as rigsDetailLoader} from './pages/Rigs/RigsDetail';
 
 import Dashboard from './pages/Host/Dashboard';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
-import HostRigs from './pages/Host/HostRigs';
-import HostRigDetail from './pages/Host/HostRigDetail';
+import HostRigs, {loader as hostRisgLoader}from './pages/Host/HostRigs';
+import HostRigDetail, {loader as hostRigDetailLoader} from './pages/Host/HostRigDetail';
 import HostRigInfo from './pages/Host/HostRigInfo';
 import HostRigPricing from './pages/Host/HostRigPricing';
 import HostRigPhotos from './pages/Host/HostRigPhotos';
@@ -37,15 +37,27 @@ const router = createBrowserRouter(createRoutesFromElements(
       loader={rigsLoader}
       errorElement={<Error />}
     />
-    <Route path="rigs/:id" element={<RigsDetail /> } />
+    <Route
+      path="rigs/:id"
+      element={<RigsDetail />}
+      loader={rigsDetailLoader}
+    />
 
-    <Route path="/host" element={<HostLayout />}>
+    <Route path="host" element={<HostLayout />}>
       <Route index element={<Dashboard />} />
       <Route path="income" element={<Income />} />
       <Route path="reviews" element={<Reviews />} />
 
-      <Route path="rigs" element={<HostRigs />} />
-      <Route path="rigs/:id" element={<HostRigDetail />}>
+      <Route
+        path="rigs"
+        element={<HostRigs />}
+        loader={hostRisgLoader}
+      />
+      <Route
+        path="rigs/:id"
+        element={<HostRigDetail />}
+        loader={hostRigDetailLoader}
+      >
         <Route index element={<HostRigInfo />}/>
         <Route path="pricing" element={<HostRigPricing />}/>
         <Route path="photos" element={<HostRigPhotos />} />

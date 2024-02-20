@@ -1,46 +1,19 @@
 import React from 'react';
-import { useState, useEffect } from "react";
-import { useParams, Link, NavLink, Outlet } from "react-router-dom";
+import { useParams, Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { getHostRigs } from '../api';
+
+export async function loader ({params}) {
+  return getHostRigs(params.id);
+}
 
 export default function HostRigDetail () {
-  const params = useParams();
-  const [currentRig, setCurrentRig ] = useState(null);
-  const url = `/api/host/rigs/${params.id}`;
+  const currentRig = useLoaderData();
 
   const activeStyles = {
     fontWeight: "bold",
     textDecoration: "underline",
     color: "#161616"
   };
-
-  useEffect(() => {
-    let isMounted = true;
-    let abortController = new AbortController();
-
-    const fetchData = async (url) => {
-
-      try {
-        const response = await fetch(url, { signal: abortController.signal });
-
-        if (isMounted) {
-          const data = await response.json();
-          setCurrentRig(data.rigs);
-        }
-      } catch(error) {
-        if (error.name !== 'AbortError') {
-          console.log('error fetching data outside of abort controller: ', error);
-        }
-      }
-    };
-
-    fetchData(url);
-
-    return () => {
-      console.log('cleaning up side effects');
-      isMounted = false;
-      abortController.abort();
-    }
-  }, [url]);
 
   return (
     <section>

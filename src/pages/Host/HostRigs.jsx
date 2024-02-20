@@ -1,39 +1,12 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import { getHostRigs } from '../api';
+
+export async function loader() {
+  return getHostRigs()
+}
 
 export default function HostRigs() {
-  const [rigs, setRigs] = useState([]);
-  const url = '/api/host/rigs';
-
-  useEffect(() => {
-    let isMounted = true;
-    let abortController = new AbortController();
-
-    const fetchData = async (url) => {
-
-      try {
-        const response = await fetch(url, { signal: abortController.signal });
-
-        if (isMounted) {
-          const data = await response.json();
-          setRigs(data.rigs);
-        }
-      } catch(error) {
-        if (error.message !== 'AbortError') {
-          console.log('Fetch error: ', error);
-        }
-      }
-    };
-
-    fetchData(url);
-
-    return () => {
-      console.log('cleaning up side effects...');
-      isMounted = false;
-      abortController.abort();
-    }
-  },[]);
+  const rigs = useLoaderData();
 
   const hostRigElements = rigs.map((rig) => (
     <Link

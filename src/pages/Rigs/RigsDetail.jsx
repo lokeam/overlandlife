@@ -1,41 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation, useLoaderData } from "react-router-dom";
+import { getRigs } from "../api";
+
+export function loader ({ params }) {
+  return getRigs(params.id);
+}
 
 export default function RigsDetail () {
-  const params = useParams();
   const location = useLocation();
-  console.log(location);
-  const [rig, setRig ] = useState(null);
-  const url = `/api/rigs/${params.id}`;
-
-  useEffect(() => {
-    let isMounted = true;
-    let abortController = new AbortController();
-
-    const fetchData = async (url) => {
-
-      try {
-        const response = await fetch(url, { signal: abortController.signal });
-
-        if (isMounted) {
-          const data = await response.json();
-          setRig(data.rigs);
-        }
-      } catch(error) {
-        if (error.name !== 'AbortError') {
-          console.log('error fetching data outside of abort controller: ', error);
-        }
-      }
-    };
-
-    fetchData(url);
-
-    return () => {
-      console.log('cleaning up side effects');
-      isMounted = false;
-      abortController.abort();
-    }
-  }, [url]);
+  const rig = useLoaderData();
 
   const searchState = location.state?.search || '';
   const rigTypeState = location.state?.type || 'all';
