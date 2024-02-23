@@ -27,6 +27,7 @@ import Error from './components/Error';
 
 // mock server response:
 import './server';
+import { requireAuth } from './utils/requireAuth';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -49,9 +50,21 @@ const router = createBrowserRouter(createRoutesFromElements(
     />
 
     <Route path="host" element={<HostLayout />}>
-      <Route index element={<Dashboard />} />
-      <Route path="income" element={<Income />} />
-      <Route path="reviews" element={<Reviews />} />
+      <Route
+        index
+        element={<Dashboard />}
+        loader={ async () => await requireAuth()}
+      />
+      <Route
+        path="income"
+        element={<Income />}
+        loader={ async () => await requireAuth()}
+      />
+      <Route
+        path="reviews"
+        element={<Reviews />}
+        loader={ async () => await requireAuth()}
+      />
 
       <Route
         path="rigs"
@@ -63,9 +76,21 @@ const router = createBrowserRouter(createRoutesFromElements(
         element={<HostRigDetail />}
         loader={hostRigDetailLoader}
       >
-        <Route index element={<HostRigInfo />}/>
-        <Route path="pricing" element={<HostRigPricing />}/>
-        <Route path="photos" element={<HostRigPhotos />} />
+        <Route
+          index
+          element={<HostRigInfo />}
+          loader={ async () => await requireAuth()}
+        />
+        <Route
+          path="pricing"
+          element={<HostRigPricing />}
+          loader={ async () => await requireAuth()}
+        />
+        <Route
+          path="photos"
+          element={<HostRigPhotos />}
+          loader={ async () => await requireAuth()}
+        />
       </Route>
     </Route>
 

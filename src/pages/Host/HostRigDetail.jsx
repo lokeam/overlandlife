@@ -1,8 +1,10 @@
 import React from 'react';
 import { useParams, Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
 import { getHostRigs } from '../../api';
+import { requireAuth } from '../../utils/requireAuth';
 
 export async function loader ({params}) {
+  await requireAuth();
   return getHostRigs(params.id);
 }
 

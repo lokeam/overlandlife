@@ -1,8 +1,10 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { getHostRigs } from '../../api';
+import { requireAuth } from '../../utils/requireAuth';
 
 export async function loader() {
-  return getHostRigs()
+  await requireAuth();
+  return getHostRigs();
 }
 
 export default function HostRigs() {
