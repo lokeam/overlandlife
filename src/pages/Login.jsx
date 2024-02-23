@@ -1,11 +1,17 @@
 import React from 'react';
-import { Form } from 'react-router-dom';
+import { Form, useLoaderData } from 'react-router-dom';
+
+export function loader({ request }) {
+  return new URL(request.url).searchParams.get('message');
+}
 
 export default function Login() {
   const [loginFormData, setLoginFormData] = React.useState({
     email: "",
     password: ""
   });
+
+  const message = useLoaderData();
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -23,6 +29,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <h1>Sign into your account</h1>
+      { message && <h3 className="loginAlert">{message}</h3> }
       <Form
         method="post"
         className="login-form"

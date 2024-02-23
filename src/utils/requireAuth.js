@@ -7,8 +7,9 @@ export async function requireAuth() {
   const isLoggedIn = false;
 
   if (!isLoggedIn) {
-    const response = redirect('/login');
+    const response = redirect('/login?message=Please log in');
     response.body = true;
     throw response;
   }
+  return null;
 }
