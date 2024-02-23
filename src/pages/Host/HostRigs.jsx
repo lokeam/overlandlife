@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { getHostRigs } from '../api';
+import { getHostRigs } from '../../api';
 
 export async function loader() {
   return getHostRigs()

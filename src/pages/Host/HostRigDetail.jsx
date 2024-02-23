@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
-import { getHostRigs } from '../api';
+import { getHostRigs } from '../../api';
 
 export async function loader ({params}) {
   return getHostRigs(params.id);

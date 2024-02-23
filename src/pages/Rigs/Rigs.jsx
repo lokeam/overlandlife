@@ -1,5 +1,5 @@
 import { Link, useSearchParams, useLoaderData } from 'react-router-dom';
-import { getRigs } from '../api';
+import { getRigs } from '../../api';
 
 export function loader() {
   return getRigs();

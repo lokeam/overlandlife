@@ -15,7 +15,7 @@ import RigsDetail, {loader as rigsDetailLoader} from './pages/Rigs/RigsDetail';
 import Dashboard from './pages/Host/Dashboard';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
-import HostRigs, {loader as hostRisgLoader}from './pages/Host/HostRigs';
+import HostRigs, {loader as hostRigsLoader}from './pages/Host/HostRigs';
 import HostRigDetail, {loader as hostRigDetailLoader} from './pages/Host/HostRigDetail';
 import HostRigInfo from './pages/Host/HostRigInfo';
 import HostRigPricing from './pages/Host/HostRigPricing';
@@ -51,7 +51,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route
         path="rigs"
         element={<HostRigs />}
-        loader={hostRisgLoader}
+        loader={hostRigsLoader}
       />
       <Route
         path="rigs/:id"
