@@ -10,7 +10,7 @@ import Layout from './components/Layout';
 import HostLayout from './components/HostLayout';
 import About from './pages/About';
 import Rigs, { loader as rigsLoader } from './pages/Rigs/Rigs';
-import Login, {loader as loginLoader} from './pages/Login';
+import Login, {loader as loginLoader, action as loginAction } from './pages/Login';
 import RigsDetail, {loader as rigsDetailLoader} from './pages/Rigs/RigsDetail';
 
 import Dashboard from './pages/Host/Dashboard';
@@ -37,6 +37,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       path="login"
       element={<Login />}
       loader={loginLoader}
+      action={loginAction}
     />
     <Route
       path="rigs"

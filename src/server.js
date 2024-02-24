@@ -4,6 +4,7 @@ import { createServer, Model } from "miragejs"
 createServer({
     models: {
         rigs: Model,
+        users: Model,
     },
 
     seeds(server) {
@@ -18,6 +19,7 @@ createServer({
       server.create("rig", { id: "9", hostId: "518", name: "Tasman", price: 120, description: "Maecenas aliquam condimentum lorem non sagittis. Donec ullamcorper dolor augue, non malesuada sem iaculis egestas. Donec euismod ut leo vitae congue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut felis magna. Praesent dapibus quam eget ante aliquam sodales.", imageUrl: "../src/assets/images/suvlogo.jpg", type: "rugged" })
       server.create("rig", { id: "10", hostId: "603", name: "Vespucci", price: 100, description: "Enean quis massa eu mi blandit dictum in et risus. Aenean congue sodales ultrices. Proin quis nunc venenatis diam consectetur vehicula at vitae urna. Sed aliquet elit a suscipit luctus. Vivamus lorem sem, rhoncus eu porttitor ac, tempus tristique metus. Curabitur sollicitudin ipsum non nunc convallis, vel gravida ante egestas.", imageUrl: "../src/assets/images/suvlogo.jpg", type: "luxury" })
       server.create("rig", { id: "11", hostId: "123", name: "Moksadeva", price: 80, description: "Donec at ante porttitor, ultricies ipsum sed, malesuada sem. Vestibulum sagittis facilisis dapibus. Nam mauris augue, accumsan non tellus vel, luctus maximus orci.", imageUrl: "../src/assets/images/suvlogo.jpg", type: "simple" })
+      server.create("user", { id: "123", email: "test@example.com", password: "123456", name: "Bob" })
     },
 
     routes() {

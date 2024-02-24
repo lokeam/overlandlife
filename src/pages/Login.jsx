@@ -1,56 +1,55 @@
-import React from 'react';
-import { Form, useLoaderData } from 'react-router-dom';
+import React, { useState } from 'react';
+import {
+    Form,
+    useLoaderData,
+    useNavigate,
+    redirect
+  } from 'react-router-dom';
+import { loginUser } from '../api';
 
 export function loader({ request }) {
   return new URL(request.url).searchParams.get('message');
 }
 
+export async function action({ request }) {
+  const formData = await request.formData();
+  const email = formData.get('email');
+  const password = formData.get('password');
+  const data = await loginUser({email, password});
+
+  localStorage.setItem('loggedin', true);
+  return redirect('/host');
+}
+
 export default function Login() {
-  const [loginFormData, setLoginFormData] = React.useState({
-    email: "",
-    password: ""
-  });
-
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState(null);
   const message = useLoaderData();
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    console.log(loginFormData);
-  }
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setLoginFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
+  const navigate = useNavigate();
 
   return (
     <div className="login-container">
       <h1>Sign into your account</h1>
       { message && <h3 className="loginAlert">{message}</h3> }
+      { error && <h3 className="loginAlert">{error.message}</h3> }
       <Form
         method="post"
         className="login-form"
-        onSubmit={handleSubmit}
         replace
       >
         <input
           name="email"
           type="email"
           placeholder="Email address"
-          onChange={handleChange}
-          value={loginFormData.email}
         />
         <input
           name="password"
           type="password"
           placeholder="password"
-          onChange={handleChange}
-          value={loginFormData.password}
         />
-        <button>Log in</button>
+        <button disabled={status === "submitting"}>
+          {status === "submtting" ? "Logging in..." : "Log in"}
+        </button>
       </Form>
     </div>
   )
